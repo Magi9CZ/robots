@@ -1,0 +1,42 @@
+.game-board {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.board-row {
+    display: flex;
+}
+
+.square {
+    width: 90px;
+    height: 90px;
+    border: 1px solid #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 6px;
+    font-weight: bold;
+}
+
+.square.white {
+    background-color: #ccc;
+}
+
+.square.gray {
+    background-color: #fff;
+}
+
+.square.green {
+    background-image: url('../img/robot_red.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.square.red {
+    background-image: url('../img/robot_green.jpg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
