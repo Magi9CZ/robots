@@ -20,11 +20,11 @@
 }
 
 .square.white {
-    background-color: #ccc;
+    background-color: #fff;
 }
 
 .square.gray {
-    background-color: #fff;
+    background-color: #ccc;
 }
 
 .square.green {

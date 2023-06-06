@@ -58,7 +58,7 @@ function GameBoard() {
         moveRobot(secondPath, 3)
         const timeoutTime =  secondPath.length > firstPath.length ? secondPath.length : firstPath.length
         setTimeout(() => {
-            console.log(isFirstFinished, isSecondFinished)
+            answerQuestion();
         }, i * timeoutTime +500)
 
     }
@@ -73,7 +73,7 @@ function GameBoard() {
                     x++;
                     setTimeout(() => {
                         const position = najitPoziciPrvku(board, numOfRobot)
-                        if (board[position.radek][position.sloupec + 1] !== 0 && board[position.radek][position.sloupec + 1] !== opositeRobot || gameOver) {
+                        if (board[position.radek][position.sloupec + 1] !== 0 || board[position.radek][position.sloupec + 1] == opositeRobot || gameOver) {
                             alert("GameOver");
                             gameOver = true
                         }
@@ -98,7 +98,7 @@ function GameBoard() {
                     x++;
                     setTimeout(() => {
                         const position = najitPoziciPrvku(board, numOfRobot)
-                        if (board[position.radek][position.sloupec - 1] !== 0 && board[position.radek][position.sloupec - 1] !== opositeRobot || gameOver) {
+                        if (board[position.radek][position.sloupec - 1] !== 0 || board[position.radek][position.sloupec - 1] == opositeRobot || gameOver) {
                             alert("GameOver");
                             gameOver = true
                         } else {
@@ -122,7 +122,7 @@ function GameBoard() {
                     x++;
                     setTimeout(() => {
                         const position = najitPoziciPrvku(board, numOfRobot)
-                        if (board[position.radek + 1][position.sloupec] !== 0 && board[position.radek + 1][position.sloupec] !== opositeRobot || gameOver) {
+                        if (board[position.radek + 1][position.sloupec] !== 0 || board[position.radek + 1][position.sloupec] == opositeRobot || gameOver) {
                             alert("GameOver");
                             gameOver = true
                         } else {
@@ -146,7 +146,7 @@ function GameBoard() {
                     x++;
                     setTimeout(() => {
                         const position = najitPoziciPrvku(board, numOfRobot)
-                        if (board[position.radek - 1][position.sloupec] !== 0 && board[position.radek - 1][position.sloupec] !== opositeRobot || gameOver) {
+                        if (board[position.radek - 1][position.sloupec] !== 0 || board[position.radek - 1][position.sloupec] == opositeRobot || gameOver) {
                             alert("GameOver");
                             gameOver = true
                         } else {
@@ -169,6 +169,16 @@ function GameBoard() {
             }
         })
     }
+    
+    function answerQuestion() {
+        if (isFirstFinished === true && isSecondFinished === true){
+            console.log(true)
+            return(true);
+        } else {
+            console.log(false)
+            return(false);
+        }
+    }
 
 
     return (
@@ -183,13 +193,14 @@ function GameBoard() {
             </div>
             <div>
                 <button type={"submit"} onClick={startGame}>Zahájit hru</button>
+                <button type={"submit"} onClick={answerQuestion}>Další otázka</button>
             </div>
             <div>
                 {board.map((row, rowIndex) => (
                     <div className="board-row" key={rowIndex}>
                         {row.map((col, colIndex) => (
                             <div
-                                className={`square ${col === 0 ? 'gray' : col === 1 ? 'white' : col === 2 ? 'green' : 'red'}`}
+                                className={`square ${col === 0 ? 'white' : col === 1 ? 'gray' : col === 2 ? 'green' : 'red'}`}
                                 key={`${rowIndex}-${colIndex}`}
                             ></div>
                         ))}
