@@ -1,30 +1,43 @@
-import React, {useEffect, useReducer, useState} from "react";
+import React, {useReducer, useState} from "react";
 import "./GBstyles.css";
 
-function GameBoard() {
+function GameBoard(props) {
 
-    const initialBoard = [
-        [1, 1, 1, 1, 1, 1, 2, 0, 0],
-        [1, 1, 1, 0, 1, 0, 1, 0, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 0, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 1, 1, 1, 1, 1, 0, 1],
-        [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        [1, 1, 0, 1, 1, 1, 1, 1, 1],
-        [1, 0, 0, 0, 0, 0, 0, 3, 1],
-    ];
+    const [questionKey, setQuestionKey] = useState();
+    const [location, setLocation] = useState();
+    const [config, setConfig] = useState();
+    const [properties, setProperties] = useState();
+
+    function init(questionKey, location, config, properties){
+        setQuestionKey(questionKey);
+        setLocation(location);
+        setConfig(config);
+        setProperties(properties);
+    }
+    
+    function onlyShowInit(questionKey, location, config, properties) {
+        if (finishedGame == false){
+            init();
+        } else if (finishedGame == true){
+
+        }
+    }
+
+
+    const initialBoard = config.map;
 
     const [board, setBoard] = useState(initialBoard);
     const [inputOne, setInputOne] = useState("");
     const [inputTwo, setInputTwo] = useState("");
-    const [ignored, forceUpdate] = useReducer(x => x + 1, 0)
-    let gameOver = false
+    const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
+    let gameOver = false;
     let i = 500;
     let firstRobotInitialPosition;
     let secondRobotInitialPosition;
     let isFirstFinished = false
     let isSecondFinished = false
+
+    const [finishedGame, setFinishedGame] = useState(false);
 
     function handleInputOne(e) {
         setInputOne(e.target.value);
@@ -58,7 +71,7 @@ function GameBoard() {
         moveRobot(secondPath, 3)
         const timeoutTime =  secondPath.length > firstPath.length ? secondPath.length : firstPath.length
         setTimeout(() => {
-            answerQuestion();
+            answer();
         }, i * timeoutTime +500)
 
     }
@@ -170,12 +183,14 @@ function GameBoard() {
         })
     }
     
-    function answerQuestion() {
+    function answer() {
         if (isFirstFinished === true && isSecondFinished === true){
             console.log(true)
+            setFinishedGame(true);
             return(true);
         } else {
             console.log(false)
+            setFinishedGame(false);
             return(false);
         }
     }
@@ -193,7 +208,7 @@ function GameBoard() {
             </div>
             <div>
                 <button type={"submit"} onClick={startGame}>Zahájit hru</button>
-                <button type={"submit"} onClick={answerQuestion}>Další otázka</button>
+                <button type={"submit"} onClick={answer}>Další otázka</button>
             </div>
             <div>
                 {board.map((row, rowIndex) => (
