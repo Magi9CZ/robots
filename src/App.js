@@ -7,7 +7,7 @@ function App() {
 
     return (
     <div className="App">
-      <GameBoard/>
+        <h1>Hello</h1>
     </div>
   );
 }

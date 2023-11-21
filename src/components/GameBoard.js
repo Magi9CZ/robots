@@ -8,21 +8,6 @@ function GameBoard(props) {
     const [config, setConfig] = useState();
     const [properties, setProperties] = useState();
 
-    function init(questionKey, location, config, properties){
-        setQuestionKey(questionKey);
-        setLocation(location);
-        setConfig(config);
-        setProperties(properties);
-    }
-    
-    function onlyShowInit(questionKey, location, config, properties) {
-        if (finishedGame == false){
-            init();
-        } else if (finishedGame == true){
-
-        }
-    }
-
 
     const initialBoard = config.map;
 
