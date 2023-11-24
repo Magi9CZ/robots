@@ -3,6 +3,7 @@ const path = require("path");
 module.exports = {
     entry: './src/index.js',
     mode: "production",
+    watch: true,
     output: {
         filename: 'main.js',
         path: path.resolve(__dirname, 'dist'),
@@ -10,23 +11,21 @@ module.exports = {
             name: "Question_robots",
             type: "umd",
             export: "default",
-
         },
     },
     module: {
         rules: [
             {
-                test: /\.(js?)$/,
+                test: /\.(js|jsx)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
                     options: {
-                        "presets": [
+                        presets: [
                             ["@babel/preset-react", {
-                                "runtime": "automatic"
+                                runtime: "automatic"
                             }]
-                        ]
-                        ,
+                        ],
                     },
                 },
             },
@@ -36,7 +35,15 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)$/,
-                use: ["file-loader"],
+                use: [
+                    {
+                        loader: "file-loader",
+                        options: {
+                            name: "[name].[ext]",
+                            outputPath: "images/",
+                        },
+                    },
+                ],
             },
         ],
     },

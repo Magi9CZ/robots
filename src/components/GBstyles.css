@@ -32,6 +32,7 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: green;
 }
 
 .square.red {
@@ -39,4 +40,5 @@
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
+    background-color: red;
 }

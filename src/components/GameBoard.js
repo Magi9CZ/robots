@@ -3,11 +3,7 @@ import "./GBstyles.css";
 
 function GameBoard(props) {
 
-    const [questionKey, setQuestionKey] = useState();
-    const [location, setLocation] = useState();
-    const [config, setConfig] = useState();
-    const [properties, setProperties] = useState();
-
+    const [config, setConfig] = useState(props.data);
 
     const initialBoard = config.map;
 
@@ -170,16 +166,21 @@ function GameBoard(props) {
     
     function answer() {
         if (isFirstFinished === true && isSecondFinished === true){
-            console.log(true)
             setFinishedGame(true);
-            return(true);
+            props.odpoved({robot1: inputOne, robot2: inputTwo});
         } else {
-            console.log(false)
             setFinishedGame(false);
-            return(false);
+            props.odpoved({robot1: inputOne, robot2: inputTwo});
         }
     }
 
+    function endGame(){
+        props.finish(true);
+    }
+
+    const [play, setPlay] = useState(props.readOnly);
+
+if (play == true) {
 
     return (
         <div className="game-board">
@@ -191,10 +192,13 @@ function GameBoard(props) {
                 <label>Robot 2 </label>
                 <input type={"text"} onChange={handleInputTwo}/>
             </div>
+
             <div>
                 <button type={"submit"} onClick={startGame}>Zahájit hru</button>
-                <button type={"submit"} onClick={answer}>Další otázka</button>
+                <button type={"submit"} onClick={answer}>Uložit odpověď</button>
+                <button type={"submit"} onClick={endGame}>Konec testu</button>
             </div>
+
             <div>
                 {board.map((row, rowIndex) => (
                     <div className="board-row" key={rowIndex}>
@@ -209,6 +213,34 @@ function GameBoard(props) {
             </div>
         </div>
     )
+} else if (play == false){
+    return (
+        <div className="game-board">
+            <div>
+                <label>Robot 1 zadaná odpověď</label>
+                <h3>{props.robot1}</h3>
+            </div>
+            <div>
+                <label>Robot 2 zadaná odpověď</label>
+                <h3>{props.robot2}</h3>
+            </div>
+
+
+            <div>
+                {board.map((row, rowIndex) => (
+                    <div className="board-row" key={rowIndex}>
+                        {row.map((col, colIndex) => (
+                            <div
+                                className={`square ${col === 0 ? 'white' : col === 1 ? 'gray' : col === 2 ? 'green' : 'red'}`}
+                                key={`${rowIndex}-${colIndex}`}
+                            ></div>
+                        ))}
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
+}
 }
 
 export default GameBoard;
