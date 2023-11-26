@@ -67,7 +67,7 @@ let map;
     }
 
     Question_robots.prototype.answer = function () {
-      const odpoved = {robotAnswer1, robotAnswer2, }
+      const odpoved = {robotAnswer1, robotAnswer2, completed}
     };
 
     /**
