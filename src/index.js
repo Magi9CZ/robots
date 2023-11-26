@@ -10,6 +10,10 @@ function Question_robots() {
 let playable = true;
 let robotAnswer1 = "";
 let robotAnswer2 = "";
+let robotPozice1;
+let robotPozice2;
+let completed = false;
+let map;
 
     Question_robots.prototype.init = function (questionKey, location, config) {
         this.questionKey = questionKey;
@@ -19,17 +23,24 @@ let robotAnswer2 = "";
         var self = this;
 
 
-        ibobrCore.HTML5InitAnswerHandlers();
-
         //init save & cancel answer handlers pro tlačítka
         const root = ReactDOM.createRoot(document.getElementById('root'));
         console.log(config);
             root.render(
                 <React.StrictMode>
-                    <GameBoard data={config} odpoved={Question_robots.prototype.answer} finish={Question_robots.prototype.check} readOnly={playable}/>
+                    <GameBoard data={config} odpoved={saveAnswer} readOnly={playable} gameState={stavHry}/>
                 </React.StrictMode>
             );
     };
+
+    function stavHry(e) {
+        robotAnswer1 = e.robot1;
+        robotAnswer2 = e.robot2;
+        robotPozice1 = e.pozice1;
+        robotPozice2 = e.pozice2;
+        completed = e.completed;
+        map = e.actualBoard;
+    }
 
 
     Question_robots.prototype.onlyShowInit = function (questionKey, location, config) {
@@ -48,12 +59,15 @@ let robotAnswer2 = "";
         );
     };
 
-
-    Question_robots.prototype.answer = function (odp) {
+    function saveAnswer(odp) {
         robotAnswer1 = odp.robot1;
         robotAnswer2 = odp.robot2;
         console.log(robotAnswer1);
         console.log(robotAnswer2);
+    }
+
+    Question_robots.prototype.answer = function () {
+      const odpoved = {robotAnswer1, robotAnswer2, }
     };
 
     /**
@@ -61,12 +75,8 @@ let robotAnswer2 = "";
      * @returns {string}
      */
     Question_robots.prototype.recoveryData = function () {
-        return JSON.stringify({
-            map: this.config.map,
-            robots: this.robots,
-            lastRobot1Command: robotAnswer1,
-            lastRobot2Command: robotAnswer2
-        });
+        const stav = {robotAnswer1, robotAnswer2, robotPozice1, robotPozice2, completed, map};
+        return stav;
     };
 
     /**
@@ -74,15 +84,13 @@ let robotAnswer2 = "";
      * @param data
      */
     Question_robots.prototype.restore = function (data) {
-        if (data) {
-            var stored_data = JSON.parse(data);
-            this.lastRobot1Command = stored_data.lastRobot1Command;
-            this.lastRobot2Command = stored_data.lastRobot2Command;
-            this.robots = stored_data.robots;
-            this.isSuccess = stored_data.isSuccess;
-            this.completed = true;
-            this.render();
-        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        console.log(config);
+        root.render(
+            <React.StrictMode>
+                <GameBoard data={data} odpoved={saveAnswer} readOnly={playable} gameState={stavHry}/>
+            </React.StrictMode>
+        );
 
     };
 }

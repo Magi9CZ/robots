@@ -178,12 +178,22 @@ function GameBoard(props) {
         props.finish(true);
     }
 
+    function handleState() {
+        props.gameState(
+            {   robot1: inputOne,
+                robot2: inputTwo,
+                pozice1: najitPoziciPrvku(board, 2),
+                pozice2: najitPoziciPrvku(board, 3),
+                completed: finishedGame,
+                actualBoard: board})
+    }
+
     const [play, setPlay] = useState(props.readOnly);
 
 if (play == true) {
 
     return (
-        <div className="game-board">
+        <div className="game-board" onChange={handleState}>
             <div>
                 <label>Robot 1 </label>
                 <input type={"text"} onChange={handleInputOne}/>
