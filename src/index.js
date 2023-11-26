@@ -91,7 +91,7 @@ let map;
         console.log(config);
         root.render(
             <React.StrictMode>
-                <GameBoard data={data} odpoved={saveAnswer} readOnly={playable} gameState={stavHry}/>
+                <GameBoard data={data} odpoved={saveAnswer} robot1={robotAnswer1} robot2={robotAnswer2} readOnly={playable} gameState={stavHry}/>
             </React.StrictMode>
         );
 

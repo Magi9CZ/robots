@@ -22,10 +22,12 @@ function GameBoard(props) {
 
     function handleInputOne(e) {
         setInputOne(e.target.value);
+        handleState();
     }
 
     function handleInputTwo(e) {
         setInputTwo(e.target.value);
+        handleState();
     }
 
     function startGame() {
