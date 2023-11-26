@@ -48,13 +48,13 @@ let map;
         this.location = location;
         this.config = config;
         playable = false;
-        console.log("play" + playable);
+        console.log("play " + playable);
         console.log("odpoved " + robotAnswer1);
         const root = ReactDOM.createRoot(document.getElementById('root'));
         console.log(config);
         root.render(
             <React.StrictMode>
-                <GameBoard data={config} robot1={JSON.stringify(robotAnswer1)} robot2={JSON.stringify(robotAnswer2)} readOnly={playable}/>
+                <GameBoard data={config} robot1={robotAnswer1} robot2={robotAnswer2} readOnly={playable}/>
             </React.StrictMode>
         );
     };
@@ -62,12 +62,15 @@ let map;
     function saveAnswer(odp) {
         robotAnswer1 = odp.robot1;
         robotAnswer2 = odp.robot2;
+        completed = odp.completed;
         console.log(robotAnswer1);
         console.log(robotAnswer2);
+        console.log("správně?: " + completed);
     }
 
     Question_robots.prototype.answer = function () {
-      const odpoved = {robotAnswer1, robotAnswer2, completed}
+      const odpoved = {robotAnswer1, robotAnswer2, completed, map};
+      return odpoved;
     };
 
     /**

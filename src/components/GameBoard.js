@@ -1,4 +1,4 @@
-import React, {useReducer, useState} from "react";
+import React, {useEffect, useReducer, useState} from "react";
 import "./GBstyles.css";
 
 function GameBoard(props) {
@@ -52,7 +52,7 @@ function GameBoard(props) {
         moveRobot(secondPath, 3)
         const timeoutTime =  secondPath.length > firstPath.length ? secondPath.length : firstPath.length
         setTimeout(() => {
-            answer();
+            saveAnswer();
         }, i * timeoutTime +500)
 
     }
@@ -164,18 +164,27 @@ function GameBoard(props) {
         })
     }
     
-    function answer() {
+    function saveAnswer() {
         if (isFirstFinished === true && isSecondFinished === true){
             setFinishedGame(true);
-            props.odpoved({robot1: inputOne, robot2: inputTwo});
+            console.log(firstRobotInitialPosition)
+            console.log(najitPoziciPrvku(board, 3))
+            console.log(secondRobotInitialPosition)
+            console.log(najitPoziciPrvku(board, 2))
+            sendAnswer();
         } else {
             setFinishedGame(false);
-            props.odpoved({robot1: inputOne, robot2: inputTwo});
+            sendAnswer();
         }
     }
 
+    function sendAnswer(){
+        props.odpoved({robot1: inputOne, robot2: inputTwo, completed: finishedGame});
+    }
+
     function endGame(){
-        props.finish(true);
+        setFinishedGame(true);
+        handleState();
     }
 
     function handleState() {
@@ -205,7 +214,7 @@ if (play == true) {
 
             <div>
                 <button type={"submit"} onClick={startGame}>Zahájit hru</button>
-                <button type={"submit"} onClick={answer}>Uložit odpověď</button>
+                <button type={"submit"} onClick={saveAnswer}>Uložit odpověď</button>
                 <button type={"submit"} onClick={endGame}>Konec testu</button>
             </div>
 
