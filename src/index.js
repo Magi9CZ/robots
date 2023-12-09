@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import GameBoard from "./components/GameBoard";
 
-function Question_robots() {
+function Question_robotsJiranek() {
 
 let playable = true;
 let robotAnswer1 = "";
@@ -15,7 +15,7 @@ let robotPozice2;
 let completed = false;
 let map;
 
-    Question_robots.prototype.init = function (questionKey, location, config) {
+    Question_robotsJiranek.prototype.init = function (questionKey, location, config) {
         this.questionKey = questionKey;
         this.location = location;
         this.config = config;
@@ -43,7 +43,7 @@ let map;
     }
 
 
-    Question_robots.prototype.onlyShowInit = function (questionKey, location, config) {
+    Question_robotsJiranek.prototype.onlyShowInit = function (questionKey, location, config) {
         this.questionKey = questionKey;
         this.location = location;
         this.config = config;
@@ -68,7 +68,7 @@ let map;
         console.log("správně?: " + completed);
     }
 
-    Question_robots.prototype.answer = function () {
+    Question_robotsJiranek.prototype.answer = function () {
       const odpoved = {robotAnswer1, robotAnswer2, completed, map};
       return odpoved;
     };
@@ -77,7 +77,7 @@ let map;
      * Returns data for recovery
      * @returns {string}
      */
-    Question_robots.prototype.recoveryData = function () {
+    Question_robotsJiranek.prototype.recoveryData = function () {
         const stav = {robotAnswer1, robotAnswer2, robotPozice1, robotPozice2, completed, map};
         return stav;
     };
@@ -86,7 +86,7 @@ let map;
      * Restore application and disable moving
      * @param data
      */
-    Question_robots.prototype.restore = function (data) {
+    Question_robotsJiranek.prototype.restore = function (data) {
         const root = ReactDOM.createRoot(document.getElementById('root'));
         console.log(config);
         root.render(
@@ -97,4 +97,4 @@ let map;
 
     };
 }
-export default Question_robots;
+export default Question_robotsJiranek;

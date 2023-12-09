@@ -7,7 +7,9 @@ function GameBoard(props) {
 
     const initialBoard = config.map;
 
-    const [board, setBoard] = useState(initialBoard);
+    const baseBoard= {...props.data.map}
+
+    const [board, setBoard] = useState([...initialBoard]);
     const [inputOne, setInputOne] = useState("");
     const [inputTwo, setInputTwo] = useState("");
     const [ignored, forceUpdate] = useReducer(x => x + 1, 0);
@@ -70,7 +72,9 @@ function GameBoard(props) {
                     setTimeout(() => {
                         const position = najitPoziciPrvku(board, numOfRobot)
                         if (board[position.radek][position.sloupec + 1] !== 0 || board[position.radek][position.sloupec + 1] == opositeRobot || gameOver) {
-                            alert("GameOver");
+                            console.log('base', baseBoard)
+                            setBoard(baseBoard)
+                            forceUpdate()
                             gameOver = true
                         }
                         else {
@@ -95,7 +99,7 @@ function GameBoard(props) {
                     setTimeout(() => {
                         const position = najitPoziciPrvku(board, numOfRobot)
                         if (board[position.radek][position.sloupec - 1] !== 0 || board[position.radek][position.sloupec - 1] == opositeRobot || gameOver) {
-                            alert("GameOver");
+                            setBoard(initialBoard)
                             gameOver = true
                         } else {
                             const newBoard = board
@@ -119,7 +123,7 @@ function GameBoard(props) {
                     setTimeout(() => {
                         const position = najitPoziciPrvku(board, numOfRobot)
                         if (board[position.radek + 1][position.sloupec] !== 0 || board[position.radek + 1][position.sloupec] == opositeRobot || gameOver) {
-                            alert("GameOver");
+                            setBoard(initialBoard)
                             gameOver = true
                         } else {
                             const newBoard = board
@@ -143,7 +147,7 @@ function GameBoard(props) {
                     setTimeout(() => {
                         const position = najitPoziciPrvku(board, numOfRobot)
                         if (board[position.radek - 1][position.sloupec] !== 0 || board[position.radek - 1][position.sloupec] == opositeRobot || gameOver) {
-                            alert("GameOver");
+                            setBoard(initialBoard)
                             gameOver = true
                         } else {
                             const newBoard = board
