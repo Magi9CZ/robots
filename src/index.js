@@ -24,7 +24,7 @@ let map;
 
 
         //init save & cancel answer handlers pro tlačítka
-        const root = ReactDOM.createRoot(document.getElementById('root'));
+        const root = ReactDOM.createRoot(document.getElementById('html5_content-' + this.location));
         console.log(config);
             root.render(
                 <React.StrictMode>
@@ -50,7 +50,7 @@ let map;
         playable = false;
         console.log("play " + playable);
         console.log("odpoved " + robotAnswer1);
-        const root = ReactDOM.createRoot(document.getElementById('root'));
+        const root = ReactDOM.createRoot(document.getElementById('html5_content-' + this.location));
         console.log(config);
         root.render(
             <React.StrictMode>
@@ -87,7 +87,7 @@ let map;
      * @param data
      */
     Question_robotsJiranek.prototype.restore = function (data) {
-        const root = ReactDOM.createRoot(document.getElementById('root'));
+        const root = ReactDOM.createRoot(document.getElementById('html5_content-' + this.location));
         console.log(config);
         root.render(
             <React.StrictMode>
